@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta http-equiv="expires" content="0">
+        <title>Portfolio</title>
+        <link href="style/style.css" rel="stylesheet" type="text/css">
+        
+
+        <link
+            rel="icon"
+            sizes="180x180"
+            href="./img/profil.jpg"
+        />
+
+    </head>
+   
+    <body>
+        <div id="app">
+			<div class="text-wrapper">
+               
+                <h1 id = "ph" ><img  id = "photo" src="./img/profil.jpg"  align="middle" /> 
+                   <p>▫️Kyiv/Pochaiv😉</p> 
+                   <p>▫️Student of NULES😊</p>
+                   <p>▫️2️⃣0️⃣.0️⃣2️⃣🎉</p>
+
+                </h1>
+				<div class="text part1">
+					<div>
+					    <canvas id="canvas"></canvas>
+						<span class="letter">
+							<div class="character">R</div> <span></span>
+						</span>
+						<span class="letter">
+							<div class="character">o</div> <span></span>
+						</span>
+						<span class="letter">
+							<div class="character">m</div> <span></span>
+						</span>
+						<span class="letter">
+							<div class="character">a</div> <span></span>
+						</span>
+						<span class="letter">
+							<div class="character">n</div> <span></span>
+						</span>
+						<span class="letter">
+							<div class="character">!</div> <span></span>
+						</span>
+						<span class="letter">
+							<div class="character">!</div> <span></span>
+						</span>
+						<span class="letter">
+							<div class="character">!</div> <span></span>
+						</span>
+					</div>
+				</div>
+				<div class="how-to"><span>Далі буде...</span></div>
+			</div>
+		</div>
+
+        
+        
+
+    </body>
+  
+
+</html>
+
+<script>
+    var canvas = document.getElementById("canvas");
+
+    var ctx = canvas.getContext("2d");
+
+    var w = canvas.width = window.innerWidth;
+    var h = canvas.height = window.innerHeight;
+
+    window.onresize = function(){
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+
+
+    }
+    var x = 0 ; var y = 0;
+   
+    function Circle(){
+        
+        this.x = Math.random()*w;
+        this.y = Math.random()*h;
+
+        
+        this.vx = Math.random()*20-10; // -10~10
+        this.vy = Math.random()*20-10; //-10~10
+
+        
+        this.r = Math.random()*20+20;//20~40
+
+        var red = Math.floor(Math.random()*256);
+        var green = Math.floor(Math.random()*256);
+        var blue = Math.floor(Math.random()*256);
+
+        this.color = "rgba("+red+","+green+","+blue+",0.5)";
+
+    }
+    
+    var c1 = new Circle();
+    var counts = [];
+    for(var i = 0 ; i < 50;i++){
+        counts.push(new Circle());
+    }
+
+    // console.log(counts)
+
+    function draw(){
+        // ctx.globalCompositeOperation="source-over";
+        ctx.clearRect(0,0,w,h);  
+        ctx.fillStyle="rgba(0,0,0,0.3)";
+        ctx.fillRect(0,0,w,h);
+
+        // ctx.globalCompositeOperation="lighter";
+        
+        for(var j = 0 ,l = counts.length; j < l;j++){
+            ctx.beginPath();
+            ctx.arc(counts[j].x, counts[j].y, counts[j].r, Math.PI*2,false);
+
+            ctx.fillStyle=counts[j].color; 
+            ctx.fill(); 
+            
+            counts[j].x+=counts[j].vx;
+            counts[j].y+=counts[j].vy;
+
+            
+            if(counts[j].x<0){
+                counts[j].x = w;
+            }
+            if(counts[j].x> (w + counts[j].r) ){
+                counts[j].x = 0;
+            }
+
+            if(counts[j].y< 0){
+                counts[j].y = h;
+            }
+            if(counts[j].y> (h+ counts[j].r)){
+                counts[j].y = 0;
+            }
+
+        }
+    }
+
+     setInterval(draw,50);
+    
+
+</script>
